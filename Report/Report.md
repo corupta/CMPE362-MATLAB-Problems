@@ -1,6 +1,6 @@
 ## CMPE 362 - 2019 - HW1 REPORT - HALIT OZSOY - 2016400141
 
-### My Learnings
+### My Learnings & Comments
 
 #### Problems 1 - 4
 * Learned to make MATLAB plots / subplots.
@@ -12,6 +12,30 @@
 * Reinvented the wheel (the formula) for generating random variables (normal/uniform) by a given mean & variance.
 * Got an idea how using histograms can help understand the functions/shape of a distribution.
 
+#### Problem 9
+* Learned to read csv and use `findpeaks` method.
+* It resulted in finding 10830 peaks within 49499 signal data, I've checked out and compared the plots between signal & peaks and my thoughts are that it needs to smooth the data a little bit more before finding peaks, otherwise it is selecting almost every point that is seemingly hard to occur continuous with its neighbours.
+* For example, the point (2.871e+0.4, 1.181) should not be a peak. 
+(Run the code and zoom into that point to check)
+
+#### Problem 10
+* Learned to read image data and make operations on it.
+* Learned to use `mean`, `std`, `min`, `max`
+* Learned to reshape a matrix to a vector for above operations, but still keep track of the initial locations of individual elements by using `ind2sub` method 
+
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
 \
 \
 \
@@ -31,15 +55,9 @@ via the uniform random function, aka `rand`.
 but they did require an external MATLAB toolbox. Then, I realized that we're probably expected to do it via hand, 
 (convert the random variables via a hand written formula to the given mean & variances) so I calculated the formulas, 
 and done it that way. 
+* In problem 10, initially I failed to run the `std` method, receiving an error that says `input argument one must be single/double`. So I had to use `double(A)` initially to convert image data (ints) to doubles.
+* I could run the `mean` method with `'all'` argument to calculate mean by all elements of a matrix, however for `std`, `min`, and `max` methods, I needed to reshape the image matrix to a vector, first.
  
- 
- \
- \
- \
- \
- \
- \
- \
  \
  \
  \
@@ -265,3 +283,75 @@ subplot(2, 2, 4);hist(r91);title('r91 = Mean: -20, Variance: 4');
 ```
 
 ![problem_8_figure](../Figures/problem_8.png)
+
+\
+\
+\
+\
+\
+\
+\
+&nbsp;
+
+
+#### Problem 9
+```matlab
+% csv path is "../ProvidedFiles/exampleSignal.csv"
+% skipping first three elements as suggested in https://canvas.instructure.com/courses/1533310/discussion_topics/7501485
+signals = csvread('../ProvidedFiles/exampleSignal.csv', 3);
+% convert from raw matrix to column matrix
+signals = signals.';
+[a, len] = size(signals);
+times = 1:len;
+[peaks, peakTimes] = findpeaks(signals);
+
+subplot(2, 1, 1); plot(times, signals); title('original signal');
+subplot(2, 1, 2); scatter(peakTimes, peaks); title('peaks found');
+```
+
+![problem_9_figure](../Figures/problem_9.png)
+
+\
+\
+\
+\
+\
+\
+\
+&nbsp;
+
+#### Problem 10
+
+```matlab
+% image path is "../ProvidedFiles/lena.png"
+rawImageData = imread('../ProvidedFiles/lena.png');
+grayImageData = rgb2gray(rawImageData);
+
+[n, m] = size(grayImageData);
+% reshape image data to a row vector for std calculation and more
+grayImageVector = reshape(grayImageData, [1, n * m]);
+
+[minValue, minIndex] = min(grayImageVector);
+[minLocationN, minLocationM] = ind2sub([n,m], minIndex);
+[maxValue, maxIndex] = max(grayImageVector);
+[maxLocationN, maxLocationM] = ind2sub([n,m], maxIndex);
+
+% std (=> var method) expects the elements to be single/double
+grayImageVector = double(grayImageVector);
+
+meanValue = mean(grayImageVector);
+stdValue = std(grayImageVector);
+
+disp('All calculations have finished')
+disp(['Mean: ', num2str(meanValue)])
+disp(['Standard Deviation: ', num2str(stdValue)])
+disp(['Minimum: ', num2str(minValue), ...
+    ' at location: (', num2str(minLocationN), ...
+    ', ', num2str(minLocationM), ')'])
+disp(['Maximum: ', num2str(maxValue), ...
+    ' at location: (', num2str(maxLocationN), ...
+    ', ', num2str(maxLocationM), ')'])
+
+```
+
+![problem_10_output](../Figures/problem_10.png)
