@@ -24,6 +24,9 @@ markdown-pdf Report.md -o Report.pdf -s md-pdf.css -r "portrait"
 mv Report.pdf ../Report.pdf
 cd ..
 
+cd src
+rm *.m~
+cd ..
 zip 2016400141_CMPE362_HW1.zip -r Figures ProvidedFiles src Report.pdf
 ots stamp 2016400141_CMPE362_HW1.zip
 # ots upgrade 2016400141_CMPE362_HW1.zip.ots
