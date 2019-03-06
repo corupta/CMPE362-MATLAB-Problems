@@ -20,7 +20,7 @@ fi
 rm 2016400141_CMPE362_HW1.zip
 rm 2016400141_CMPE362_HW1.zip.ots
 cd Report
-markdown-pdf Report.md -o Report.pdf
+markdown-pdf Report.md -o Report.pdf -s md-pdf.css -r "portrait"
 mv Report.pdf ../Report.pdf
 cd ..
 

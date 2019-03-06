@@ -1,0 +1,16 @@
+img {
+  display: block;
+  margin: auto;
+  height: 320px;
+}
+
+pre {
+  /* background-color: red; */
+  line-height: 86%;
+}
+
+code {
+  /* background-color: rgba(0, 255, 0, 120); */
+  font-size: 12px;
+}
+
