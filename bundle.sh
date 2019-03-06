@@ -17,8 +17,8 @@ if ! [ -x "$(command -v zip)" ]; then
   exit 1
 fi
 
-rm 2016400141_CMPE362_HW1.zip
-rm 2016400141_CMPE362_HW1.zip.ots
+rm 2016400141_CmpE362_HW1.zip
+rm 2016400141_CmpE362_HW1.zip.ots
 cd Report
 markdown-pdf Report.md -o Report.pdf -s md-pdf.css -r "portrait"
 mv Report.pdf ../Report.pdf
@@ -27,13 +27,13 @@ cd ..
 cd src
 rm *.m~
 cd ..
-zip 2016400141_CMPE362_HW1.zip -r Figures ProvidedFiles src Report.pdf
-ots stamp 2016400141_CMPE362_HW1.zip
-# ots upgrade 2016400141_CMPE362_HW1.zip.ots
+zip 2016400141_CmpE362_HW1.zip -r Figures ProvidedFiles src Report.pdf
+ots stamp 2016400141_CmpE362_HW1.zip
+# ots upgrade 2016400141_CmpE62_HW1.zip.ots
 rm Report.pdf
-rm -r 2016400141_CMPE362_HW1
-unzip 2016400141_CMPE362_HW1.zip -d 2016400141_CMPE362_HW1
+rm -r 2016400141_CmpE362_HW1
+unzip 2016400141_CmpE362_HW1.zip -d 2016400141_CmpE362_HW1
 
-echo "Zip 2016400141_CMPE362_HW1.zip is created, don't forget to check its contents"
+echo "Zip 2016400141_CmpE362_HW1.zip is created, don't forget to check its contents"
 echo "Also, don't forget to push the .zip and .ots to github"
 echo "Also don't forget to send the .zip to canvas"
